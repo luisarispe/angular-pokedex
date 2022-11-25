@@ -35,4 +35,4 @@ jobs:
 
     - name: Deploy
       if: success()
-      run: aws s3 sync ./dist/angular-pokedex s3://poke-dex
+      run: aws s3 sync ./dist/angular-pokedex s3://pokedex.luisarispe.com
