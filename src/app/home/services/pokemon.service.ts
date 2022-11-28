@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from "../../../environment/environment";
 import { ApiPokemon } from '../interfaces/api-pokemon.interface';
-import { map, Observable, pipe, tap } from 'rxjs';
+import { BehaviorSubject, delay, map, Observable, pipe, tap } from 'rxjs';
 import { Pokemon, Ability } from '../interfaces/pokemon.interface';
 
 const base_url=environment.base_url;
@@ -11,11 +11,24 @@ const base_url=environment.base_url;
   providedIn: 'root'
 })
 export class PokemonService {
-  constructor(private _http: HttpClient) { }
+  private _apiPokemon:BehaviorSubject<ApiPokemon | null>= new BehaviorSubject<ApiPokemon |null>(null);
+  public apiPokemon$: Observable<ApiPokemon | null> = this._apiPokemon.asObservable();
 
-  getAll(offset:number): Observable<ApiPokemon>{
-    return this._http.get<ApiPokemon>(`${base_url}pokemon?offset=${offset}`);
+  constructor(private _http: HttpClient) {}
+
+  set apiPokemons(value: ApiPokemon | null) {
+    this._apiPokemon.next(value);
   }
+
+  getAll(offset:number): Observable<ApiPokemon | null>{
+    this.apiPokemons=null;
+    return this._http.get<ApiPokemon | null>(`${base_url}pokemon?limit=12&offset=${offset}`).pipe(
+      tap((result:ApiPokemon | null)=>{
+        this.apiPokemons=result;
+      })
+    )
+  }
+
   getName(name:string): Observable<Pokemon>{
     return this._http.get<Pokemon>(`${base_url}pokemon/${name}`).pipe(
       map((pokemon:Pokemon):Pokemon=>{

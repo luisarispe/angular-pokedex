@@ -1,4 +1,15 @@
-<ng-container *ngIf="pokemon$ | async as pokemon">
+<ng-template #loading>
+    <div class="container m-auto mt-4 pb-10">
+        <ngx-skeleton-loader count="1" animation="pulse"
+        [theme] =" { 
+            'border-radius': '5px',
+            height: '280px',
+            border: '1px solid white'
+          } "
+        ></ngx-skeleton-loader>
+    </div>
+</ng-template>
+<ng-container *ngIf="pokemon$ | async as pokemon; else loading">
     <div class="bg-[#FFE15D] h-auto flex flex-col rounded-2xl items-center w-full py-4 space-y-2">
         <img [src]="pokemon.sprites.other?.dream_world?.front_default" class="object-contain h-32 w-24" alt="">
         <span class="text-[#B01E68] text-3xl font-medium">{{name | titlecase}}</span>
