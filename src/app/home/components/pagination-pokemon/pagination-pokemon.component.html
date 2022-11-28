@@ -1,0 +1,8 @@
+<div class="opacity-0" [ngClass]="{'opacity-80':windowScrolled}">
+    <div class="fixed left-1/4 bottom-36 bg-slate-700 hover:bg-slate-900 p-4 rounded-2xl cursor-pointer" (click)="changeOffset('left')">
+        <mat-icon class="mat-icon text-white" fontIcon="keyboard_arrow_left"></mat-icon>
+    </div>
+    <div class="fixed right-1/4 bottom-36 bg-slate-700 hover:bg-slate-900 p-4 rounded-2xl cursor-pointer" (click)="changeOffset('right')">
+        <mat-icon class="mat-icon text-white" fontIcon="keyboard_arrow_right"></mat-icon>
+    </div>
+</div>

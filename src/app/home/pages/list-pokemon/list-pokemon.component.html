@@ -1,5 +1,20 @@
-<div class="container m-auto mt-4 pb-36">
-    <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4 p-1">
-        <app-card-pokemon *ngFor="let pokemon of listPokemon" [name]="pokemon.name" [url]="pokemon.url"></app-card-pokemon>
-    </div><!---END GRID-->
-</div><!--END CONTAINER--->
+<ng-template #loading>
+    <div class="container m-auto mt-4 pb-10 p-1">
+        <ngx-skeleton-loader [count]="countSkeleton" animation="pulse"
+        [theme] =" { 
+            'border-radius': '5px',
+            height: '250px',
+            border: '1px solid white'
+          } "
+        ></ngx-skeleton-loader>
+    </div>
+</ng-template>
+<ng-container *ngIf="apiPokemons$ | async as apiPokemons; else loading">
+    <div class="container m-auto mt-4 pb-10">
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4 p-1">
+            <app-card-pokemon *ngFor="let pokemon of apiPokemons.results" [name]="pokemon.name" [url]="pokemon.url"></app-card-pokemon>
+        </div><!---END GRID-->
+    </div><!--END CONTAINER--->
+</ng-container>
+<app-pagination-pokemon></app-pagination-pokemon>
+

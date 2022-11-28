@@ -4,13 +4,15 @@ import { ListPokemonComponent } from './pages/list-pokemon/list-pokemon.componen
 import { HomeRoutingModule } from './home-routing.module';
 import { MaterialCdkModule } from '../material-cdk/material-cdk.module';
 import { CardPokemonComponent } from './components/card-pokemon/card-pokemon.component';
+import { PaginationPokemonComponent } from './components/pagination-pokemon/pagination-pokemon.component';
 
 
 
 @NgModule({
   declarations: [
     ListPokemonComponent,
-    CardPokemonComponent
+    CardPokemonComponent,
+    PaginationPokemonComponent
   ],
   imports: [
     CommonModule,
